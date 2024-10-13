@@ -1,0 +1,65 @@
+﻿<Window x:Class="Canvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Canvas"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Label>Kształt</Label>
+                <RadioButton Content="Linia" GroupName="ShapeGroup" Checked="ShapeRadioButton_Checked" IsChecked="True" Tag="1"/>
+                <RadioButton Content="Prostokąt" GroupName="ShapeGroup" Checked="ShapeRadioButton_Checked" Tag="2"/>
+                <RadioButton Content="Okrąg" GroupName="ShapeGroup" Checked="ShapeRadioButton_Checked" Tag="3"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Label Content="X1:" x:Name="XLabel"/>
+                <TextBox x:Name="XTextBox"/>
+                <Label Content="Y1:" x:Name="YLabel"/>
+                <TextBox x:Name="YTextBox"/>
+                <StackPanel x:Name="SizeStackPanel1">
+                    <Label Content="X2:" x:Name="SizeLabel1" />
+                    <TextBox x:Name="SizeTextBox1"/>
+                </StackPanel>
+                <StackPanel x:Name="SizeStackPanel2">
+                    <Label Content="Y2:" x:Name="SizeLabel2" />
+                    <TextBox x:Name="SizeTextBox2"/>
+                </StackPanel>
+                <Button Content="Rysuj" Click="onDrawButtonClick"/>
+                <Button Content="Wczytaj" Click="onLoadButtonClick"/>
+                <Button Content="Zapisz" Click="onSaveButtonClick"/>
+                <Button Content="Wyczyść" Click="onClearButtonClick"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock>Zmień figurę</TextBlock>
+                <Label Content="X1:" x:Name="XEditLabel"/>
+                <TextBox x:Name="XEditTextBox"/>
+                <Label Content="Y1:" x:Name="YEditLabel"/>
+                <TextBox x:Name="YEditTextBox"/>
+                <StackPanel x:Name="SizeEditStackPanel1">
+                    <Label Content="X2:" x:Name="SizeEditLabel1" />
+                    <TextBox x:Name="SizeEditTextBox1"/>
+                </StackPanel>
+                <StackPanel x:Name="SizeEditStackPanel2">
+                    <Label Content="Y2:" x:Name="SizeEditLabel2" />
+                    <TextBox x:Name="SizeEditTextBox2"/>
+                    <Button Content="Zmień" Click="onEditButtonClick"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Canvas Background="White" Name="canvas" MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" MouseLeftButtonUp="Canvas_OnMouseLeftButtonUp" MouseMove="Canvas_OnMouseMove" KeyDown="Canvas_OnKeyDown" Focusable="True"/>
+        </Grid>
+    </Grid>
+</Window>
