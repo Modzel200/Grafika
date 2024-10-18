@@ -1,0 +1,62 @@
+﻿<Window x:Class="RubicCube.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RubicCube"
+        xmlns:h="http://helix-toolkit.org/wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <StackPanel>
+                <TextBlock>Change Color</TextBlock>
+                <RadioButton x:Name="RGBtoCMYKCheckBox" Checked="OnRGBtoCMYKChecked" IsChecked="True">RGB to CMYK</RadioButton>
+                <RadioButton x:Name="CMYKtoRGBCheckBox" Checked="OnCMYKtoRGBChecked">CMYK to RGB</RadioButton>
+                <StackPanel Name="RGBInputsPanel">
+                <TextBlock Text="RGB"></TextBlock>
+                <Slider Name="redSlider" Value="0" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <Slider Name="greenSlider" Value="0" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <Slider Name="blueSlider" Value="0" Minimum="0" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="R:"/>
+                    <TextBox Name="redTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                    <TextBlock Text="G:"/>
+                    <TextBox Name="greenTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                    <TextBlock Text="B:"/>
+                    <TextBox Name="blueTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                </StackPanel>
+                </StackPanel>
+                <StackPanel Name="CMYKInputsPanel">
+                <TextBlock Text="CMYK"></TextBlock>
+                <Slider Name="cyanSlider" Value="0" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <Slider Name="magentaSlider" Value="0" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <Slider Name="yellowSlider" Value="0" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <Slider Name="blackSlider" Value="0" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnColorSliderChanged"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="C:"/>
+                    <TextBox Name="cyanTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                    <TextBlock Text="M:"/>
+                    <TextBox Name="magentaTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                    <TextBlock Text="Y:"/>
+                    <TextBox Name="yellowTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                    <TextBlock Text="K:"/>
+                    <TextBox Name="blackTextBox" Text="0" TextChanged="OnColorTextChanged"/>
+                </StackPanel>
+                </StackPanel>
+                <TextBlock Text="Color"></TextBlock>
+                <Rectangle Name="convertedColorDisplay" Width="50" Height="50"/>
+                <TextBlock x:Name="colorCodeTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <h:HelixViewport3D x:Name="viewport3D" Grid.Column="1"
+                               IsZoomEnabled="True" >
+            </h:HelixViewport3D>
+        </Grid>
+    </Grid>
+</Window>
