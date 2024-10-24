@@ -1,0 +1,103 @@
+﻿<Window x:Class="Filtry.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Filtry"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="800">
+    <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="3*"></ColumnDefinition>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+    <!-- Image Section -->
+    <Grid Grid.Column="0" Background="White">
+        <Image x:Name="MainImage" Stretch="UniformToFill" />
+    </Grid>
+
+    <!-- Controls Section -->
+    <Grid Grid.Column="1" Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Kategoria" FontWeight="SemiBold" FontSize="20" Margin="0,5,0,10" Foreground="DarkBlue" HorizontalAlignment="Center" />
+
+        <!-- RadioButtons for Selection -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <RadioButton Content="Transformacje" x:Name="TransformOption" IsChecked="True" Checked="OnTransformOption_Checked" Margin="5" />
+            <RadioButton Content="Efekty" x:Name="EffectsOption" Checked="OnEffectsOption_Checked" Margin="5" />
+        </StackPanel>
+
+        <!-- Load Image Button -->
+        <Button Grid.Row="2" Content="Załaduj zdjęcie" Click="OnLoadImage_Click" Margin="0,0,0,10" Width="150" HorizontalAlignment="Center" />
+
+        <!-- Transformation Section -->
+        <Grid x:Name="TransformPanel" Grid.Row="3" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Content="Dodaj" Click="OnAddition_Click" Margin="5" />
+            <Button Grid.Row="0" Grid.Column="1" Content="Odejmij" Click="OnSubtraction_Click" Margin="5" />
+            <Button Grid.Row="1" Grid.Column="0" Content="Mnożenie" Click="OnMultiplication_Click" Margin="5" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Dziel" Click="OnDivision_Click" Margin="5" />
+            <Button Grid.Row="2" Grid.Column="0" Content="Jasność" Click="OnBrightnessChange_Click" Margin="5" />
+
+            <!-- Grayscale Section -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Szarość" Grid.Row="0" FontSize="14" FontWeight="Medium" HorizontalAlignment="Center" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="1" Click="OnGrayscale1_Click" Margin="5" />
+                    <Button Content="2" Click="OnGrayscale2_Click" Margin="5" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- Effects Section -->
+        <Grid x:Name="EffectsPanel" Grid.Row="3" Visibility="Collapsed" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Content="Rozmycie" Click="OnBlurEffect_Click" Margin="5" />
+            <Button Grid.Row="0" Grid.Column="1" Content="Medianowy" Click="OnMedianEffect_Click" Margin="5" />
+            <Button Grid.Row="1" Grid.Column=" 0" Content="Sobel" Click="OnSobelEffect_Click" Margin="5" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Ostre krawędzie" Click="OnHighPassEffect_Click" Margin="5" />
+            <Button Grid.Row="2" Grid.Column="0" Content="Gaussian Blur" Click="OnGaussianBlurEffect_Click" Margin="5" />
+        </Grid>
+
+        <!-- Value Field -->
+        <Grid Grid.Row="4" x:Name="valueFieldGrid" Margin="0,10,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Parametr" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right" />
+            <TextBox Grid.Column="1" x:Name="ParameterTextBox" Width="80" VerticalAlignment="Center" Margin="10,0,0,0" />
+        </Grid>
+    </Grid>
+</Grid>
+</Window>
