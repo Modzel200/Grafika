@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("RubicCube")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Histogram")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0272a4a6f3b8275809338fa6487410b18c660b6")]
-[assembly: System.Reflection.AssemblyProductAttribute("RubicCube")]
-[assembly: System.Reflection.AssemblyTitleAttribute("RubicCube")]
+[assembly: System.Reflection.AssemblyProductAttribute("Histogram")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Histogram")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
