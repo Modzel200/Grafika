@@ -1,0 +1,78 @@
+﻿<Window x:Class="Transformacja2D.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Transformacja2D"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+   <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="1*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Drawing Panel -->
+    <Canvas Grid.Column="0" Name="canvas" Background="White" Margin="10"
+            MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+            MouseMove="Canvas_MouseMove"
+            MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+            MouseDown="Canvas_MouseDown"/>
+    
+    <!-- Control Panel -->
+    <StackPanel Grid.Column="1" Margin="10">
+        <!-- Title -->
+        <TextBlock Text="Transformacja 2D" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" TextAlignment="Center"/>
+
+        <!-- Adding Points -->
+        <TextBlock Text="Dodaj Punkt" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="X:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="XTextBox" Width="50" Margin="0,0,10,0"/>
+            <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="YTextBox" Width="50"/>
+        </StackPanel>
+        <Button Content="Dodaj Punkt" Click="AddPointButton_Click" Margin="0,0,0,10"/>
+
+        <!-- List of Points -->
+        <TextBlock Text="Lista Punktów" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
+        <ListBox x:Name="pointListBox" Height="100" Margin="0,0,0,10"/>
+
+        <!-- Transformations -->
+        <TextBlock Text="Przekształcenia" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
+        <TextBlock Text="Przesunięcie" Margin="0,5,0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="X:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="translationXTextBox" Width="50" Margin="0,0,10,0"/>
+            <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="translationYTextBox" Width="50"/>
+        </StackPanel>
+        <Button Content="Przesuń" Click="TranslationButton_Click" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Obrót" Margin="0,5,0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Kąt:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="rotationAngleTextBox" Width="50"/>
+        </StackPanel>
+        <Button Content="Obróć" Click="RotationButton_Click" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Skalowanie" Margin="0,5,0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Skala:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="scalingFactorTextBox" Width="50"/>
+        </StackPanel>
+        <Button Content="Skaluj" Click="ScalingButton_Click" Margin="0,0,0,10"/>
+
+        <!-- Management Buttons -->
+        <Button Content="Wyczyść" Click="ClearButton_Click" Margin="0,0,0,5"/>
+        <Button Content="Wyczyść Punkty" Click="ClearPointButton_Click" Margin="0,0,0,5"/>
+
+        <!-- Save and Load Buttons -->
+        <Button Content="Zapisz do Pliku" Click="SaveToFileButton_Click" Margin="0,0,0,5"/>
+        <Button Content="Wczytaj z Pliku" Click="LoadFromFileButton_Click" Margin="0,0,0,5"/>
+    </StackPanel>
+</Grid>
+
+
+
+</Window>

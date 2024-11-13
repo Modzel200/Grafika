@@ -1,0 +1,64 @@
+﻿<Window x:Class="Bezier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bezier"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="2*" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Canvas for drawing, occupying the first column -->
+    <Canvas Grid.Column="0" Name="canvas" Background="White"
+            MouseMove="Canvas_MouseMove"
+            MouseLeftButtonUp="Canvas_MouseUp"
+            MouseLeftButtonDown="SetPointClick" />
+
+    <!-- Controls section, occupying the second column -->
+    <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Degree input field -->
+        <TextBox Name="degreeTextBox" Grid.Row="0" Margin="5" />
+
+        <!-- X, Y input and control buttons -->
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <Label Content="X:" VerticalAlignment="Center" />
+                <TextBox Name="XTextBox" Width="50" Margin="5,0,0,0" />
+                <Label Content="Y:" VerticalAlignment="Center" Margin="10,0,0,0" />
+                <TextBox Name="YTextBox" Width="50" Margin="5,0,0,0" />
+            </StackPanel>
+            <Button Content="Dodaj" Click="AddPoint_Click" Margin="0,0,0,5" />
+            <Button Content="Zatwierdź" Click="EditPoint_Click" />
+        </StackPanel>
+
+        <!-- List of points -->
+        <ListBox Name="pointListBox" Grid.Row="2" Margin="5"
+                 ItemsSource="{Binding points}" 
+                 SelectionChanged="pointListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding X, StringFormat={}{0:F2}}" Margin="5,0,0,0" />
+                        <TextBlock Text="," Margin="0,0,0,0" />
+                        <TextBlock Text="{Binding Y, StringFormat={}{0:F2}}" Margin="5,0,0,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Clear button -->
+        <Button Content="Wyczyść" Grid.Row="3" Margin="5" Click="ClearCanvas" />
+    </Grid>
+</Grid>
+</Window>

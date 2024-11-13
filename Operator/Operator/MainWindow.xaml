@@ -1,0 +1,32 @@
+﻿<Window x:Class="Operator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Operator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="displayedImage" Grid.Column="0" Stretch="Fill" />
+
+        <StackPanel Grid.Column="1" Margin="10">
+            <Button x:Name="LoadImage" Content="Wczytaj obraz" Margin="5" Click="LoadImage_Click"/>
+        
+            <TextBlock Text="Maska:" Margin="5" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBox Name="StructuringElementSize" Text="0 1 0 1 1 1 0 1 0" Margin="5"/>
+        
+            <Button x:Name="Dilatation" Content="Dylatacja" Margin="5" Click="Dilatation_Click"/>
+            <Button x:Name="Erosion" Content="Erozja" Margin="5" Click="Erosion_Click"/>
+            <Button x:Name="Opening" Content="Otwarcie" Margin="5" Click="Opening_Click"/>
+            <Button x:Name="Closing" Content="Domknięcie" Margin="5" Click="Closing_Click"/>
+            <Button x:Name="HitOrMiss" Content="Hit Or Miss" Margin="5" Click="HitOrMiss_Click"/>
+            <Button x:Name="Thinning" Content="Pocienianie" Margin="5" Click="Thinning_Click"/>
+            <Button x:Name="Thickening" Content="Pogrubianie" Margin="5" Click="Thickening_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
