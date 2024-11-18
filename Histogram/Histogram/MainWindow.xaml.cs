@@ -98,50 +98,94 @@ public partial class MainWindow : Window
     }
 
     private void ApplyHistogramStretch()
+{
+    // Separate min and max values for each color channel
+    int minR = colorPixels.Min(c => c.R);
+    int maxR = colorPixels.Max(c => c.R);
+    int minG = colorPixels.Min(c => c.G);
+    int maxG = colorPixels.Max(c => c.G);
+    int minB = colorPixels.Min(c => c.B);
+    int maxB = colorPixels.Max(c => c.B);
+
+    // Stretch each channel independently
+    for (int i = 0; i < colorPixels.Count; i++)
     {
-        int[] grayscaleValues = new int[colorPixels.Count];
+        Color color = colorPixels[i];
+        byte newR = (byte)(255 * (color.R - minR) / (maxR - minR));
+        byte newG = (byte)(255 * (color.G - minG) / (maxG - minG));
+        byte newB = (byte)(255 * (color.B - minB) / (maxB - minB));
 
-        for (int i = 0; i < colorPixels.Count; i++)
-        {
-            grayscaleValues[i] = (colorPixels[i].R + colorPixels[i].B + colorPixels[i].G) / 3;
-        }
-
-        int minGray = grayscaleValues.Min();
-        int maxGray = grayscaleValues.Max();
-
-        for (int i = 0; i < grayscaleValues.Length; i++)
-        {
-            grayscaleValues[i] = (int)(255 * (double)(grayscaleValues[i] - minGray) / (maxGray - minGray));
-        }
-        UpdateImage(GenerateDrawableArray(grayscaleValues));
+        colorPixels[i] = Color.FromArgb(255, newR, newG, newB);
     }
 
-    private void ApplyHistogramEqualization()
+    // Update image with the modified colors
+    UpdateImage(GenerateDrawableArrayFromColors(colorPixels));
+}
+
+private void ApplyHistogramEqualization()
+{
+    // Calculate histograms for each channel
+    int[] histogramR = new int[256];
+    int[] histogramG = new int[256];
+    int[] histogramB = new int[256];
+
+    foreach (Color pixel in colorPixels)
     {
-        int[] grayscaleHistogram = CalculateGrayScaleHistogram();
-        int totalPixels = pixelData.Length;
-
-        int[] cumulativeDist = new int[256];
-        cumulativeDist[0] = grayscaleHistogram[0];
-        for (int i = 1; i < 256; i++)
-        {
-            cumulativeDist[i] = cumulativeDist[i - 1] + grayscaleHistogram[i];
-        }
-
-        int minCdf = cumulativeDist.Min();
-        int maxCdf = cumulativeDist.Max();
-
-        byte[] equalizedPixels = new byte[totalPixels];
-        for (int i = 0; i < totalPixels; i += 4)
-        {
-            int grayValue = (pixelData[i] + pixelData[i + 1] + pixelData[i + 2]) / 3;
-            int newGrayValue = (int)(255.0 * (cumulativeDist[grayValue] - minCdf) / (maxCdf - minCdf));
-            equalizedPixels[i] = equalizedPixels[i + 1] = equalizedPixels[i + 2] = (byte)newGrayValue;
-            equalizedPixels[i + 3] = 255;
-        }
-        UpdateImage(equalizedPixels);
-        UpdateColorPixels(equalizedPixels);
+        histogramR[pixel.R]++;
+        histogramG[pixel.G]++;
+        histogramB[pixel.B]++;
     }
+
+    // Compute cumulative distribution functions for each channel
+    int[] cdfR = CalculateCumulativeDistribution(histogramR);
+    int[] cdfG = CalculateCumulativeDistribution(histogramG);
+    int[] cdfB = CalculateCumulativeDistribution(histogramB);
+
+    int totalPixels = colorPixels.Count;
+    int minCdfR = cdfR.First(c => c > 0);
+    int minCdfG = cdfG.First(c => c > 0);
+    int minCdfB = cdfB.First(c => c > 0);
+
+    // Equalize each channel independently
+    for (int i = 0; i < colorPixels.Count; i++)
+    {
+        Color color = colorPixels[i];
+
+        byte newR = (byte)(255.0 * (cdfR[color.R] - minCdfR) / (totalPixels - minCdfR));
+        byte newG = (byte)(255.0 * (cdfG[color.G] - minCdfG) / (totalPixels - minCdfG));
+        byte newB = (byte)(255.0 * (cdfB[color.B] - minCdfB) / (totalPixels - minCdfB));
+
+        colorPixels[i] = Color.FromArgb(255, newR, newG, newB);
+    }
+
+    // Update image with the modified colors
+    UpdateImage(GenerateDrawableArrayFromColors(colorPixels));
+}
+private int[] CalculateCumulativeDistribution(int[] histogram)
+{
+    int[] cdf = new int[256];
+    cdf[0] = histogram[0];
+    for (int i = 1; i < 256; i++)
+    {
+        cdf[i] = cdf[i - 1] + histogram[i];
+    }
+    return cdf;
+}
+
+private byte[] GenerateDrawableArrayFromColors(List<Color> colorList)
+{
+    byte[] byteArr = new byte[pixelData.Length];
+    int currentIndex = 0;
+    for (int i = 0; i < pixelData.Length; i += 4)
+    {
+        Color color = colorList[currentIndex++];
+        byteArr[i] = color.B;
+        byteArr[i + 1] = color.G;
+        byteArr[i + 2] = color.R;
+        byteArr[i + 3] = 255;
+    }
+    return byteArr;
+}
 
     private void ManualThreshold_Click(object sender, RoutedEventArgs e)
     {
